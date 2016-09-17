@@ -1,0 +1,33 @@
+#include<stdio.h>
+
+int fib1[1000]={0};
+int fib2[1000]={0};
+int fib3[1000]={0};
+
+int main(int argc,char *argv[]){
+
+    // Initialize fib1 and fib2 to 1:
+    addNum2Vec(fib1,1);
+    addNum2Vec(fib2,1);
+
+
+}
+
+
+void addNum2Vec(int *vec[], int num){
+    i=999;
+    int newNum;
+    int leastSigDig;
+    while(i>=0){
+        newNum=vec[i]+num;
+        if(newNum>9){
+            leastSigDig = newNum%10;
+            num = newNum/10;
+            vec[i]=leastSigDig;
+            i--;
+        }else{
+            vec[i]=newNum;
+            break;
+        }
+    }
+}
