@@ -1,0 +1,25 @@
+#include<stdio.h>
+
+
+int combIndex=0;
+int combinations[8][10000];
+
+int onePenny = 1;
+int twoPenny = 2;
+int fivePenny = 5;
+int tenPenny = 10;
+int twentyPenny = 20;
+int fiftyPenny = 50;
+int onePound = 100;
+int twoPound = 200;
+int goal = twoPound;
+
+int main(){
+
+}
+
+
+
+int computeCoinCombinations(){
+
+}
