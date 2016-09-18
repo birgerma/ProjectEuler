@@ -1,0 +1,28 @@
+
+
+int main(){
+    int n1 = 1634;
+    int n2 = 8208;
+    int n3 = 9474;
+
+}
+
+
+int recursiveDigitSum(int number, int sum){
+    int n = number%10;
+
+    number/=10;
+
+    sum+=pow(n,5);
+
+    if(number!=0){
+        return recursiveDigitSum(number,sum);
+    }else{
+        return sum;
+    }
+}
+
+void printPowerSum(int num){
+    int power = 4;
+    if(num>9999){
+        printf("
