@@ -36,45 +36,27 @@ unsigned long computeCoinCombinations(){
     int sum;
     unsigned long nmbrOfCorrectComb = 0;
     //int it;
-    while(combination[7]<2){
-        
-        sum = computeCoinSum(combination);
-        if(sum<goal){//Increase one step
-            int i;
-            for(i=0; i<7; i++){
-                if(combination[i]*coinValues[i]>=goal){
-                    combination[i]=0;
-                }else{
-                    combination[i]++;
-                    break;
+    int target=200;
+    int a;
+    int b,c,d,e,f,g;
+    int ways=0;
+    for (a = target; a >= 0; a -= 200) {
+        for (b = a; b >= 0; b -= 100) {
+            for (c = b; c >= 0; c -= 50) {
+                for (d = c; d >= 0; d -= 20) {
+                    for (e = d; e >= 0; e -= 10) {
+                        for (f = e; f >= 0; f -= 5) {
+                            for (g = f; g >= 0; g -= 2) {
+                                ways++;
+                            }
+                        }
+                    }
                 }
             }
-        }else if(sum>=goal){
-            if(sum==goal){
-                nmbrOfCorrectComb++;
-                if(nmbrOfCorrectComb>73682){
-                    printf("ERROR\n");
-                    //printf("%lu\n",nmbrOfCorrectComb);
-                    //printCombination(combination);
-                }
-            }
-            int i;
-            int j;
-            for(i=6; i>=0; i--){
-                if(combination[i]>0){
-                    j=i+1;
-                    combination[j]++;
-                    break;
-                }
-            }
-            for(i=0; i<j; i++){
-                combination[i]=0;
-            }
-        }else{
-            printf("Something went wrong...");
         }
     }
-    return nmbrOfCorrectComb;
+
+    return ways;;
 }
 
 void printCombination(int comb[]){
