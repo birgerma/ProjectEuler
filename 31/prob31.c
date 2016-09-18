@@ -2,7 +2,7 @@
 
 
 int combIndex=0;
-int combinations[8][10000];
+//int combinations[8][10000];
 int success[10000];
 
 int onePenny = 1;
@@ -18,61 +18,81 @@ int coinValues[8] = {1,2,5,10,20,50,100,200};
 //int coinValues[8] = {onePenny, twoPenny, fivePenny, tenPenny, twentyPenny, fiftyPenny, onePound, twoPound};
 int goal = 200;
 
-int computeCoinSum(int index);
-void printCombination(int index);
+int computeCoinSum(int comb[]);
+void printCombination(int comb[]);
+unsigned long computeCoinCombinations();
 
 int main(){
 
-    computeCoinCombinations(2,combIndex);
-    /* int i; */
-    /* for(i=7; i>=0; i--){ */
-    /*     printf("%d\n",i); */
-    /*     computeCoinCombinations(i,combIndex); */
-    /*     combIndex++; */
-    /* } */
-    printf("Number of combinations tested:%d\n",combIndex);
+    unsigned long nmbrOfComb = computeCoinCombinations();
+    printf("Number of combinations:%lu\n",nmbrOfComb);
 }
 
 
 
-int computeCoinCombinations(int nextCoinIndex, int index){
+unsigned long computeCoinCombinations(){
     //sum+=coinValues[nextCoinIndex];
-    combinations[nextCoinIndex][index]++;
-    int sum = computeCoinSum(index);
-    
-    if(sum==goal){
-        //printf("Goal(index=%d)! Sum is %d: ",index,sum);
-        success[index]=1;
-        //printCombination(index);
-    }else if(sum<goal){
-        int i;
-        computeCoinCombinations(0, index);
-        //printf("Index: %d\n",combIndex);
-        for(i=1; i<8; i++){
-            combIndex++;
-            //printf("Index: %d\n",combIndex);
-            computeCoinCombinations(i, combIndex);
-            //printf("Index: %d\n",combIndex);
+    int combination[8] = {};
+    int sum;
+    unsigned long nmbrOfCorrectComb = 0;
+    //int it;
+    while(combination[7]<2){
+        
+        sum = computeCoinSum(combination);
+        if(sum<goal){//Increase one step
+            int i;
+            for(i=0; i<7; i++){
+                if(combination[i]*coinValues[i]>=goal){
+                    combination[i]=0;
+                }else{
+                    combination[i]++;
+                    break;
+                }
+            }
+        }else if(sum>=goal){
+            if(sum==goal){
+                nmbrOfCorrectComb++;
+                if(nmbrOfCorrectComb>73682){
+                    printf("ERROR\n");
+                    //printf("%lu\n",nmbrOfCorrectComb);
+                    //printCombination(combination);
+                }
+            }
+            int i;
+            int j;
+            for(i=6; i>=0; i--){
+                if(combination[i]>0){
+                    j=i+1;
+                    combination[j]++;
+                    break;
+                }
+            }
+            for(i=0; i<j; i++){
+                combination[i]=0;
+            }
+        }else{
+            printf("Something went wrong...");
         }
     }
+    return nmbrOfCorrectComb;
 }
 
-void printCombination(int index){
-    int sum = computeCoinSum(index);
+void printCombination(int comb[]){
+    int sum = computeCoinSum(comb);
 
     printf("%d*1p + %d*2p +  %d*5p +  %d*10p + %d*20p +  %d*50p +  %d*1Pound +  %d*2Pound = %f Pound\n",
-           combinations[0][index],combinations[1][index],combinations[2][index],combinations[3][index],
-           combinations[4][index],combinations[5][index],combinations[6][index],combinations[7][index],
+           comb[0],comb[1],comb[2],comb[3],
+           comb[4],comb[5],comb[6],comb[7],
            ((double)sum)/100);
 
 }
 
-int computeCoinSum(int index){
+int computeCoinSum(int comb[]){
     int sum=0;
     int i;
     for(i=0; i<8; i++){
         //printf("i=%d, %d\n",i,combinations[i][index]);
-        sum+=(coinValues[i]*combinations[i][index]);
+        sum+=(coinValues[i]*comb[i]);
     }
     return sum;
 }
