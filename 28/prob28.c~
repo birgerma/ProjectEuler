@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+
+int main(){
+
+    int presentNumber=3;
+    int stepLength=2;
+    int nmbrOfCorners=0;
+    int diagonalSum=1;
+
+    while(stepLength<1001){
+        diagonalSum=diagonalsum+presentNumber;
+        presentNumber+=stepLength;
+        nmbrOfCorners++;
+
+
+        if(nmbrOfCorners==4){
+            stepLength+=2;
+            nmbrOfCorners=0;
+        }
+    }
+    printf("Diagonal sum:%d\n",diagonalSum);
+}

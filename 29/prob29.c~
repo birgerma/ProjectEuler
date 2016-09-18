@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+
+int main(){
+    int aMin = 2;
+    int aMax = 100;
+    int bMin = 2;
+    int bMax = 100;
+    int n = (aMax-aMin+1)*(bMax-bMin+1);
+    int nmbrs[n];
